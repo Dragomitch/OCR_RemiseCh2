@@ -1,14 +1,16 @@
 public class Boisson{
-	private final static String SOFT= "soft";
-	private final static String BIERE= "biere";
-	private final static String VIN= "vin";
+	public final static String SOFT= "soft";
+	public final static String BIERE= "biere";
+	public final static String VIN= "vin";
 	private String nom, typeDeBoisson;
 	private double contenance;
 	private int stock;
 
 	public Boisson(String nom, double contenance, String typeDeBoisson)throws ArgumentInvalideException{
-		if(nom== null || nom.equals("") ||contenance>= 0.25 || typeDeBoisson== null|| typeDeBoisson.equals(""))
-			throw new ArgumentInvalideException("Param√®tres invalides");
+		if(nom== null || nom.equals("") ||contenance<= 0.25 || typeDeBoisson== null)
+			throw new ArgumentInvalideException("ParamËtres invalides");
+		if(!typeDeBoisson.equals(SOFT) && !typeDeBoisson.equals(BIERE) && !typeDeBoisson.equals(VIN))
+			throw new ArgumentInvalideException("Le type doit Ítre: "+SOFT+ " ou "+BIERE+" ou "+VIN);
 		this.nom= nom;
 		this.contenance= contenance;
 		this.typeDeBoisson= typeDeBoisson;
@@ -17,7 +19,7 @@ public class Boisson{
 	public Boisson(String nom, double contenance, String typeDeBoisson, int stock)throws ArgumentInvalideException{
 		this(nom, contenance, typeDeBoisson);
 		if(stock<= 0)
-			throw new ArgumentInvalideException("La quantite doit √™tre >0");
+			throw new ArgumentInvalideException("La quantite doit Ítre >0");
 		this.stock= stock;
 	}
 
@@ -45,14 +47,14 @@ public class Boisson{
 
 	public void ajouter(int nb)throws ArgumentInvalideException{
 		if(nb<= 0) 
-			throw new ArgumentInvalideException("Le nombre √† ajouter doit √™tre > 0");
+			throw new ArgumentInvalideException("Le nombre ‡ ajouter doit Ítre > 0");
 		stock+= nb;
 	}
 
 	public void retirer(int nb)throws ArgumentInvalideException{
 		if(nb<= 0|| stock-nb <=0) 
-			throw new ArgumentInvalideException("Le nombre √† retirer doit √™tre <0."
-			+"Le nombre restant doit √™tre <=0");
+			throw new ArgumentInvalideException("Le nombre ‡ retirer doit Ítre <0."
+			+"Le nombre restant doit Ítre <=0");
 		stock-= nb;
 	}
 
